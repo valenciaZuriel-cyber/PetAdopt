@@ -1,5 +1,4 @@
 const AdoptionRequest = require('../models/AdoptionRequest');
-const Validation = require('../models/validation'); 
 const Pet = require('../models/pet');
 
 exports.requestAdoption = async (req, res) => {
@@ -45,6 +44,8 @@ exports.requestAdoption = async (req, res) => {
             userId,
             petId,
             motive,
+            income: ingresos, 
+            haveyard: tienePatio,
             status: estadoCalculado
         });
         await nuevaSolicitud.save();
@@ -60,6 +61,18 @@ exports.requestAdoption = async (req, res) => {
         res.status(500).json({ msg: 'Error al procesar adopción', error: error.message });
     }
 };
+
+exports.getUserRequests = async (req, res) => {
+    try {
+        const solicitudes = await AdoptionRequest.find({ userId: req.user.id })
+        .populate('petId') // Esto jala nombre, raza y FOTO de la mascota automáticamente
+        .sort({ createdAt: -1 });
+        res.status(200).json(solicitudes);
+    } catch (error) {
+        res.status(500).json({ msg: 'Error al obtener solicitudes', error: error.message });
+    }
+};
+
 
 exports.updateAdoptionStatus = async (req, res) => {
     try {

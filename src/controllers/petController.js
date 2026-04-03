@@ -2,11 +2,9 @@ const Pet = require('../models/pet');
 
 exports.registerPet = async (req, res) => {
     try {
-        const { name, dogbreed, age, description, healtStatus } = req.body;
+        const { name, dogbreed, age, description, gender, size, color, imageUrl, healtStatus } = req.body;
 
-        const nuevaMascota = new Pet({
-            name, dogbreed, age, description, healtStatus
-        });
+        const nuevaMascota = new Pet({ name, dogbreed, age, description, gender, size, color, imageUrl, healtStatus });
 
         await nuevaMascota.save();
         res.status(201).json({ msg: 'Mascota registrada exitosamente', pet: nuevaMascota });
@@ -23,3 +21,12 @@ exports.getAvailablePets = async (req, res) => {
         res.status(500).json({ msg: 'Error al obtener catálogo', error: error.message });
     }
 };
+
+exports.getPetById = async (req, res) => {
+ try {
+ const pet = await Pet.findById(req.params.id);
+ res.json(pet);
+ } catch (error) {
+ res.status(404).json({ msg: 'Mascota no encontrada' });
+ }
+}

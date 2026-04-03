@@ -67,3 +67,12 @@ exports.login = async (req, res) => {
         res.status(500).json({ msg: 'Error en el servidor', error: error.message });
     }
 };
+
+exports.getProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ msg: 'Error al obtener perfil' });
+    }
+}

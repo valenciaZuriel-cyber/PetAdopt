@@ -7,7 +7,8 @@ const adminAuth = require('../middlewares/adminAuth');
 // Esta ruta SÍ se queda protegida (Solo Admins)
 router.post('/admin/register', auth, adminAuth, petController.registerPet);
 
-// Esta ruta ahora es PÚBLICA (Le quitamos el "auth")
 router.get('/available', petController.getAvailablePets);
+router.get('/:id', petController.getPetById);
+
 
 module.exports = router;

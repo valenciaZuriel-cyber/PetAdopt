@@ -13,4 +13,6 @@ router.patch('/admin/status/:id', auth, adminAuth, adoptionController.updateAdop
 
 router.delete('/admin/cancel/:id', auth, adminAuth, adoptionController.cancelAdoption);
 
+router.get('/my-requests', auth, adoptionController.getUserRequests);
+
 module.exports = router;
