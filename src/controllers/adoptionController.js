@@ -30,16 +30,8 @@ exports.requestAdoption = async (req, res) => {
             observaciones = 'Aprobación automática: El usuario cumple con el perfil ideal (Espacio e ingresos).';
         }
 
-        // 3. Guardar el registro de validación
-        const nuevaValidacion = new Validation({
-            userId,
-            income: ingresos,
-            haveyard: tienePatio,
-            observations: observaciones
-        });
-        await nuevaValidacion.save();
 
-        // 4. Crear la solicitud de adopción
+        // 3. Crear la solicitud de adopción
         const nuevaSolicitud = new AdoptionRequest({
             userId,
             petId,
