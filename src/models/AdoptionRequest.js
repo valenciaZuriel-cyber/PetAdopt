@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const AdoptionRequestSchema = new mongoose.Schema({
-  petName: { type: String, required: true },
+  petId: { type: mongoose.Schema.Types.ObjectId, ref: 'Pet', required: true },
   motive: { type: String, required: true }, 
   status: { type: String, enum: ['pendiente', 'aprobado', 'rechazado'], default: 'pendiente' },
   // Validaciones integradas

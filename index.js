@@ -167,8 +167,9 @@ const swaggerDocument = {
             'application/json': {
               schema: {
                 type: 'object',
+                requires: ['petId'],
                 properties: {
-                 petName: { type: 'string', example: 'Rex' }, 
+                 petId: { type: 'string', description: 'Identificador único de la mascota' }, 
                   motive: { type: 'string', example: 'Quiero un compañero de vida, para todas mis aventuras' },
                   income: { type: 'number', example: 15000 },
                   haveyard: { type: 'boolean', example: true }
