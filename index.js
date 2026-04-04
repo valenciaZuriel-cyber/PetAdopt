@@ -249,6 +249,40 @@ const swaggerDocument = {
         ],
         responses: { 200: { description: 'Proceso cancelado' } }
       }
+    },
+    '/adoptions/admin/all': {
+      get: {
+        tags: ['Adopciones'],
+        summary: 'Obtener todas las solicitudes de adopción (Solo Admin)',
+        description: 'Retorna una lista completa de todas las solicitudes de adopción en el sistema.',
+        security: [{ bearerAuth: [] }],
+        responses: {
+          200: {
+            description: 'Lista de solicitudes obtenida con éxito',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      _id: { type: 'string', example: '60d5ec49f1b2c8b1f8e4e1a1' },
+                      petId: { type: 'string', example: '64b8f9e2c3a14d0012345678' },
+                      userId: { type: 'string', example: '5f8d0a2b4b9b9c0017a4e3b1' },
+                      motive: { type: 'string', example: 'Quiero un compañero de vida' },
+                      status: { type: 'string', example: 'pending' },
+                      createdAt: { type: 'string', format: 'date-time' }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          401: { description: 'No autorizado - Falta el token o es inválido' },
+          403: { description: 'Prohibido - El usuario no tiene permisos de administrador' },
+           500: { description: 'Error interno del servidor' }
+        }
+      }
     }
   }
 };

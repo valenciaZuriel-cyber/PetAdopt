@@ -15,4 +15,6 @@ router.delete('/admin/cancel/:id', auth, adminAuth, adoptionController.cancelAdo
 
 router.get('/my-requests', auth, adoptionController.getUserRequests);
 
+router.get('/admin/all', auth, adminAuth, adoptionController.getAllRequestsAdmin);
+
 module.exports = router;

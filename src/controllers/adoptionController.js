@@ -152,3 +152,15 @@ exports.cancelAdoption = async (req, res) => {
         res.status(500).json({ msg: 'Error al cancelar la adopción', error: error.message });
     }
 };
+exports.getAllRequestsAdmin = async (req, res) => {
+    try {
+        const solicitudes = await AdoptionRequest.find()
+            .populate('petId') 
+            .populate('userId', 'name lastName email')
+            .sort({ createdAt: -1 });
+
+        res.status(200).json(solicitudes);
+    } catch (error) {
+        res.status(500).json({ msg: 'Error al obtener el tablero de admin', error: error.message });
+    }
+};
