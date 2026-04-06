@@ -283,6 +283,45 @@ const swaggerDocument = {
            500: { description: 'Error interno del servidor' }
         }
       }
+    },
+    '/pets/admin/delete/{id}': {
+      delete: {
+        tags: ['Mascotas'],
+        summary: 'Eliminar una mascota del sistema (Solo Admin)',
+        description: 'Elimina permanentemente el registro de una mascota. Requiere permisos de administrador.',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: {
+              type: 'string',
+              example: '60d5ec49f1b2c8b1f8e4e1a1'
+            },
+            description: 'El ID (ObjectId de MongoDB) de la mascota a eliminar'
+          }
+        ],
+        responses: {
+          200: {
+            description: 'Mascota eliminada exitosamente',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    msg: { type: 'string', example: 'Mascota eliminada exitosamente del sistema' }
+                  }
+                }
+              }
+            }
+          },
+          404: { description: 'Mascota no encontrada o ID inválido' },
+          401: { description: 'No autorizado - Falta el token o es inválido' },
+          403: { description: 'Prohibido - El usuario no tiene permisos de administrador' },
+          500: { description: 'Error interno del servidor' }
+        }
+      }
     }
   }
 };
