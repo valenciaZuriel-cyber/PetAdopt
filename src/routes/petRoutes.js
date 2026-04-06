@@ -6,7 +6,7 @@ const adminAuth = require('../middlewares/adminAuth');
 
 // Esta ruta SÍ se queda protegida (Solo Admins)
 router.post('/admin/register', auth, adminAuth, petController.registerPet);
-router.delete('/admin/delete/:id', auth, adminAuth, petController.deletePetAdmin);
+router.delete('/admin/delete/:id', auth, adminAuth, petController.deletePet);
 
 router.get('/available', petController.getAvailablePets);
 router.get('/:id', petController.getPetById);
